@@ -125,7 +125,10 @@ SWEP.Secondary.DefaultClip = -1              // Default number of bullets in a c
 SWEP.Secondary.Automatic   = false           // Automatic/Semi Auto
 SWEP.Secondary.Ammo     = "none"
 
-SWEP.ActionDelay        = CurTime()
+SWEP.ActionDelay = CurTime()
+-- A replacement for the above ActionDelay, which is causing some issues
+-- that we need to tail
+SWEP.PerformDelay = CurTime()
 
 // I added this function because some weapons like the Day of Defeat weapons need 1.2 or 1.5 seconds to deploy
 SWEP.DeployDelay        = 1
@@ -152,7 +155,7 @@ SWEP.BurstDelay         = 0.05
 SWEP.BurstCounter       = 0
 SWEP.BurstTimer         = 0
 
-// Custom mode options (Do not put a burst mode and a custom mode at the same time, it will not work)
+-- Custom mode options (Do not put a burst mode and a custom mode at the same time, it will not work)
 SWEP.Type            = 1               // 1 = Automatic/Semi-Automatic mode, 2 = Suppressor mode, 3 = Burst fire mode
 SWEP.Mode            = false
 
@@ -165,10 +168,10 @@ SWEP.data.Damage        = 1.0
 SWEP.data.Recoil        = 1.0
 SWEP.data.Automatic     = false
 
-// Constant accuracy means that your crosshair will not change if you're running, shooting or walking
+-- Constant accuracy means that your crosshair will not change if you're running, shooting or walking
 SWEP.ConstantAccuracy      = false
 
-// I don't think it's hard to understand this
+-- I don't think it's hard to understand this
 SWEP.Penetration        = true
 SWEP.Ricochet        = false
 
@@ -235,6 +238,7 @@ end
 /*---------------------------------------------------------
    Name: SWEP:IdleAnimation()
    Desc: Are you seriously too stupid to understand the function by yourself?
+         ^^ I wouldn't be so hasty to accuse anyone of stupidity, orginal author.
 ---------------------------------------------------------*/
 function SWEP:IdleAnimation(time)
    
@@ -248,7 +252,7 @@ end
    Desc: +attack1 has been pressed.
 ---------------------------------------------------------*/
 function SWEP:PrimaryAttack()
-      // Holst/Deploy your fucking weapon
+      -- Holst/Deploy your fucking weapon
 
    if (not self.Owner:KeyDown(IN_SPEED) and not self.Owner:KeyDown(IN_RELOAD) and self.Owner:KeyDown(IN_USE)) then
       
@@ -272,7 +276,7 @@ function SWEP:PrimaryAttack()
    self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
    self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
 
-   // If the burst mode is activated, it's going to shoot the three bullets (or more if you're dumb and put 4 or 5 bullets for your burst mode)
+   -- If the burst mode is activated, it's going to shoot the three bullets (or more if you're dumb and put 4 or 5 bullets for your burst mode)
    if self.Weapon:GetDTBool(3) and self.Type == 3 then
       self.BurstTimer   = CurTime()
       self.BurstCounter = self.BurstShots - 1
@@ -444,8 +448,7 @@ end
    Desc: Reload is being pressed.
 ---------------------------------------------------------*/
 function SWEP:Reload()
-
-   // When the weapon is already doing an animation, just return end because we don't want to interrupt it
+   --When the weapon is already doing an animation, just return end because we don't want to interrupt it
    if (self.ActionDelay > CurTime()) or self.Owner:KeyDown(IN_SPEED) or self.Weapon:GetDTBool(0) then return end
       
    self.Weapon:SetNextPrimaryFire(CurTime() + 1.0)

@@ -81,7 +81,7 @@ function SWEP:Think()
 		self:SetIronsights(false)
 	end
 
-	// If you're running or if your weapon is holsted, the third person animation is going to change
+	-- If you're running or if your weapon is holsted, the third person animation is going to change
 	if self.Owner:KeyDown(IN_SPEED) or self.Weapon:GetDTBool(0) then
 		if self.Rifle or self.Sniper or self.Shotgun then
 			self:SetWeaponHoldType("passive")
@@ -94,7 +94,7 @@ function SWEP:Think()
 		self:SetWeaponHoldType(self.HoldType)
 	end
 
-	// Burst fire mode
+	-- Burst fire mode
 	if self.Weapon:GetDTBool(3) and self.Type == 3 then
 		if self.BurstTimer + self.BurstDelay < CurTime() then
 			if self.BurstCounter > 0 then
@@ -118,8 +118,7 @@ end
    Desc: Reload is being pressed.
 ---------------------------------------------------------*/
 function SWEP:Reload()
-
-	if (self.ActionDelay > CurTime()) then return end 
+	if (self.PerformDelay > CurTime()) then return end
 	
 	if (self.Weapon:GetNWBool("Reloading") or self.ShotgunReloading) then return end
 

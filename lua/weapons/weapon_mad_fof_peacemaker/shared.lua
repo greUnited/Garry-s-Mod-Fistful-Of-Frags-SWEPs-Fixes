@@ -57,7 +57,7 @@ end
 ---------------------------------------------------------*/
 function SWEP:PrimaryAttack()
 
-	// Holst/Deploy your fucking weapon
+	-- Holst/Deploy your fucking weapon
 	if (not self.Owner:IsNPC() and self.Owner:KeyDown(IN_USE)) then
 		bHolsted = !self.Weapon:GetDTBool(0)
 		self:SetHolsted(bHolsted)
@@ -72,7 +72,7 @@ function SWEP:PrimaryAttack()
 
 	if (not self:CanPrimaryAttack()) then return end
 
-	self.ActionDelay = (CurTime() + self.Primary.Delay)
+	self.PerformDelay = (CurTime() + self.Primary.Delay)
 
 	if (IsValid(self.Owner) and self.Owner:GetViewModel()) then
 		self:IdleAnimation(self.Owner:GetViewModel():SequenceDuration() + 0.5)
