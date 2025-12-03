@@ -272,7 +272,7 @@ function SWEP:PrimaryAttack()
    if (not self:CanPrimaryAttack()) then return end
    
    self.Reloadaftershoot = CurTime() + self.Primary.Delay
-   self.ActionDelay = (CurTime() + self.Primary.Delay + 0.05)
+   self.PerformDelay = (CurTime() + self.Primary.Delay + 0.05)
    self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
    self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
 
@@ -570,7 +570,6 @@ end
 --       https://wiki.facepunch.com/gmod/Entity:GetDTBool
 -- function SWEP:Holster()
    -- if (self.ManualHolster) then
-   --    print(self.Weapon:GetDTBool(0))
    --    if self.Weapon:GetDTBool(0) or self.Owner:InVehicle() then
    --       return true
    --    end

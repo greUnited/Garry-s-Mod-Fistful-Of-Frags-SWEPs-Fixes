@@ -29,7 +29,7 @@ SWEP.Secondary.Ammo		= "none"
 SWEP.ShellEffect			= "none"				// "effect_mad_shell_pistol" or "effect_mad_shell_rifle" or "effect_mad_shell_shotgun"
 SWEP.ShellDelay			= 0
 
-// Is it a pistol, a rifle, a shotgun or a sniper? Choose only one of them or you'll fucked up everything. BITCH!
+-- Is it a pistol, a rifle, a shotgun or a sniper? Choose only one of them or you'll fucked up everything. BITCH!
 SWEP.Pistol				= false
 SWEP.Rifle				= true
 SWEP.Shotgun			= false
@@ -123,7 +123,8 @@ function SWEP:Think()
 		local WeaponModel = self.Weapon:GetOwner():GetActiveWeapon():GetClass()
 
 		if self.Weapon:GetOwner():GetActiveWeapon():GetClass() == WeaponModel and self.Owner:Alive() then
-			self.Weapon:SendWeaponAnim(ACT_VM_IDLE)
+			-- This line seems to be causing issues with reloading Clip1() when its > 0
+			-- self.Weapon:SendWeaponAnim(ACT_VM_IDLE)
 
 			if self.AllowPlaybackRate and not self.Weapon:GetDTBool(1) then
 				self.Owner:GetViewModel():SetPlaybackRate(1)

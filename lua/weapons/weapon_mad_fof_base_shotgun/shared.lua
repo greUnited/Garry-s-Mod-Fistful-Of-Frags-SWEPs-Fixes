@@ -31,7 +31,7 @@ function SWEP:Think()
 				self.Weapon:SetNetworkedBool("Reloading", false)
 				self.Weapon:SendWeaponAnim(ACT_SHOTGUN_RELOAD_FINISH)
 				if (IsValid(self.Owner) and self.Owner:GetViewModel()) then
-				self:IdleAnimation(self.Owner:GetViewModel():SequenceDuration())
+					self:IdleAnimation(self.Owner:GetViewModel():SequenceDuration())
 				end
 			else
 				self.Weapon:SetNetworkedInt("ReloadTime", CurTime() + 0.5)
@@ -62,7 +62,8 @@ function SWEP:Think()
 			if self.Weapon:GetDTBool(3) and self.Type == 2 then
 				self.Weapon:SendWeaponAnim(ACT_VM_IDLE_SILENCED)
 			else
-				self.Weapon:SendWeaponAnim(ACT_VM_IDLE)
+			-- This line seems to be causing issues with reloading Clip1() when its > 0
+				-- self.Weapon:SendWeaponAnim(ACT_VM_IDLE)
 			end
 
 			if self.AllowPlaybackRate and not self.Weapon:GetDTBool(1) then
@@ -151,7 +152,6 @@ end
    Desc: Whip it out.
 ---------------------------------------------------------*/
 function SWEP:Deploy()
-
 	if self.Weapon:GetDTBool(0) then
 		bHolsted = !self.Weapon:GetDTBool(0)
 		self:SetHolsted(bHolsted)
@@ -164,7 +164,8 @@ function SWEP:Deploy()
 
 	self.Weapon:SetNextPrimaryFire(CurTime() + self.DeployDelay)
 	self.Weapon:SetNextSecondaryFire(CurTime() + self.DeployDelay)
-	self.ActionDelay = (CurTime() + self.DeployDelay)
+	-- self.ActionDelay = (CurTime() + self.DeployDelay)
+	self.PerformDelay = (CurTime() + self.DeployDelay)
 
 	if (SERVER) then
 		self:SetIronsights(false)

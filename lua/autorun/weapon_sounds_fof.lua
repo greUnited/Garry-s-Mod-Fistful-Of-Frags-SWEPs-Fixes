@@ -646,3 +646,14 @@ instbl["sound"] = "weapons/universal/uni-holster.wav"
 instbl["name"] = "Universal.Holster"
 
 sound.Add(instbl)
+
+local instbl = {}
+instbl["channel"] = "3"
+instbl["level"] = "75"
+instbl["volume"] = "1.0"
+instbl["CompatibilityAttenuation"] = "1"
+instbl["pitch"] = "95,105"
+instbl["sound"] = "weapons/volcanic/volcanic_single.wav"
+instbl["name"] = "Weapon.Volcanic"
+
+sound.Add(instbl)

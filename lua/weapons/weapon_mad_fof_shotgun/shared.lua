@@ -112,7 +112,8 @@ function SWEP:Think()
 		local WeaponModel = self.Weapon:GetOwner():GetActiveWeapon():GetClass()
 
 		if self.Weapon:GetOwner():GetActiveWeapon():GetClass() == WeaponModel and self.Owner:Alive() then
-			self.Weapon:SendWeaponAnim(ACT_VM_IDLE)
+			-- This line seems to be causing issues with reloading Clip1() when its > 0
+			-- self.Weapon:SendWeaponAnim(ACT_VM_IDLE)
 
 			if self.AllowPlaybackRate and not self.Weapon:GetDTBool(1) then
 				self.Owner:GetViewModel():SetPlaybackRate(1)
@@ -130,7 +131,7 @@ function SWEP:Think()
 		self:SetIronsights(false)
 	end
 
-	// If you're running or if your weapon is holsted, the third person animation is going to change
+	-- If you're running or if your weapon is holsted, the third person animation is going to change
 	if self.Owner:KeyDown(IN_SPEED) or self.Weapon:GetDTBool(0) then
 		if self.Rifle or self.Sniper or self.Shotgun then
 			if (SERVER) then
